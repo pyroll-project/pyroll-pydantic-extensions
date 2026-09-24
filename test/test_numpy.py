@@ -2,7 +2,7 @@ from pathlib import Path
 
 import numpy as np
 import pytest
-from pydantic import TypeAdapter, ValidationError
+from pydantic import BaseModel, TypeAdapter, ValidationError
 
 from pyroll_pydantic_extensions.numpy import RegularGrid
 
@@ -43,3 +43,13 @@ def test_errors(value, tmpdir: Path):
         ta.validate_python(value)
 
     (tmpdir / "exception.txt").write_text(str(info.getrepr()), encoding="utf8")
+
+
+def test_model():
+
+    class Model(BaseModel):
+        grid_field: RegularGrid[float, np.float64]
+
+    Model(grid_field=[3, 5])
+    Model(grid_field=[[3, 5], [1, 3]])
+    Model(grid_field=np.array([[3, 5], [1, 3]]))
