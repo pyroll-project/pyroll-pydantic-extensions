@@ -1,0 +1,45 @@
+from pathlib import Path
+
+import numpy as np
+import pytest
+from pydantic import TypeAdapter, ValidationError
+
+from pyroll_pydantic_extensions.numpy import RegularGrid
+
+ta = TypeAdapter(float | RegularGrid[float, np.float64])
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        3,
+        "3",
+        [2, 4],
+        [2, "4"],
+        [[3, 5], [1, 3]],
+        [[3, "5"], [1, 3]],
+        np.array([[3, 5], [1, 3]]),
+        np.array([[3, "5"], [1, 3]]),
+    ],
+)
+def test_correct_values(value, tmpdir: Path):
+    v = ta.validate_python(value)
+
+    (tmpdir / "result.txt").write_text(ta.dump_json(v).decode("utf8"), encoding="utf8")
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        None,
+        [[2], 4],
+        ["a", 4],
+        [[[3, 5], [1, 3]]],
+        np.array([[3, 5], [1, "a"]]),
+    ],
+)
+def test_errors(value, tmpdir: Path):
+    with pytest.raises(ValidationError) as info:
+        ta.validate_python(value)
+
+    (tmpdir / "exception.txt").write_text(str(info.getrepr()), encoding="utf8")

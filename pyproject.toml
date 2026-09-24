@@ -56,3 +56,6 @@ ban-relative-imports = "all"
 
 [tool.ruff.lint.isort]
 known-first-party = ["pyroll_pydantic_extensions"]
+
+[dependency-groups]
+dev = ["pytest~=9.1"]
