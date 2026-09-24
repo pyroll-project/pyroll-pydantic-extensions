@@ -1,0 +1,58 @@
+[project]
+name = "pyroll-pydantic-extensions"
+description = "PyRolL Pydantic Extensions"
+authors = [{ name = "Max Weiner", email = "max.weiner@imf.tu-freiberg.de" }]
+version = "0.1"
+requires-python = ">=3.14"
+dependencies = ["pydantic ~= 2.13", "numpy", "shapely~=2.1", "pydantic-shapely"]
+license = "BSD-3-Clause"
+readme = "README.md"
+keywords = []
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python",
+]
+
+[project.urls]
+Documentation = "https://github.com/pyroll-project/pyroll-pydantic-extensions/src/branch/main/README.md"
+Issues = "https://github.com/pyroll-project/pyroll-pydantic-extensions/issues"
+Source = "https://github.com/pyroll-project/pyroll-pydantic-extensions"
+
+[build-system]
+requires = ["uv_build~=0.12.0"]
+build-backend = "uv_build"
+
+[tool.pyright]
+venvPath = ".devenv/state"
+venv = "venv"
+
+[tool.ruff]
+
+line-length = 120
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 120
+
+[tool.ruff.lint]
+select = [
+  "E",   # pycodestyle
+  "F",   # Pyflakes
+  "UP",  # pyupgrade
+  "B",   # flake8-bugbear
+  "SIM", # flake8-simplify
+  "I",   # isort
+]
+
+
+[tool.ruff.lint.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.isort]
+known-first-party = ["pyroll_pydantic_extensions"]

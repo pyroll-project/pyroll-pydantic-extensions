@@ -1,0 +1,76 @@
+{
+  pkgs,
+  ...
+}:
+{
+  enterShell = ''
+    python --version
+  '';
+
+  languages.nix.enable = true;
+
+  languages.python = {
+    enable = true;
+    version = "3.14";
+    venv.enable = true;
+    uv = {
+      enable = true;
+      sync.enable = true;
+    };
+  };
+
+  treefmt = {
+    enable = true;
+    config.settings = {
+      excludes = [
+        ".*/*"
+        "_*/*"
+        "**/.*/*"
+        "**/_*/*"
+        ".gitignore"
+        "**/.gitignore"
+      ];
+    };
+    config.programs = {
+      nixfmt.enable = true;
+      ruff.enable = true;
+      ruff-format.includes = [
+        "*.py"
+        "*.pyi"
+
+      ];
+      just.enable = true;
+      taplo.enable = true;
+      yamlfmt = {
+        enable = true;
+        settings = {
+          formatter = {
+            indent = 4;
+          };
+        };
+      };
+      mdformat = {
+        enable = true;
+        plugins =
+          ps: with ps; [
+            mdformat-gfm
+            mdformat-frontmatter
+          ];
+        settings = {
+          wrap = "keep";
+          number = true;
+        };
+      };
+    };
+  };
+
+  git-hooks.hooks = {
+    treefmt.enable = true;
+  };
+
+  packages = with pkgs; [
+    nil
+    just
+    codebook
+  ];
+}
