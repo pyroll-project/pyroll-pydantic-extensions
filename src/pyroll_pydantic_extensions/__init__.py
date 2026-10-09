@@ -3,8 +3,8 @@ from pyroll_pydantic_extensions.shapely import LineString, Polygon
 from pyroll_pydantic_extensions.static_field import StaticField
 from pyroll_pydantic_extensions.subclass import (
     ValidateSubclasses,
-    rebuild_validate_subclass_models,
-    uses_validate_subclass_field,
+    rebuild_validate_subclasses_models,
+    uses_validate_subclasses_field,
 )
 
 __all__ = [
@@ -15,6 +15,6 @@ __all__ = [
     "Polygon",
     "StaticField",
     "ValidateSubclasses",
-    "rebuild_validate_subclass_models",
-    "uses_validate_subclass_field",
+    "rebuild_validate_subclasses_models",
+    "uses_validate_subclasses_field",
 ]

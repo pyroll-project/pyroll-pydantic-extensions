@@ -8,13 +8,13 @@ from pydantic_core import core_schema
 _validate_subclass_users: set[type[BaseModel]] = set()
 
 
-def uses_validate_subclass_field(cls: type[BaseModel]):
+def uses_validate_subclasses_field(cls: type[BaseModel]):
     """Decorator that registers a class as using a `ValidateSubclass` field validator and thus schedules it for rebuilding on demand."""
     _validate_subclass_users.add(cls)
     return cls
 
 
-def rebuild_validate_subclass_models():
+def rebuild_validate_subclasses_models():
     """Force rebuilds of all models previously registered with `@uses_validate_subclass_field`."""
     for m in _validate_subclass_users:
         m.model_rebuild(force=True)
