@@ -4,6 +4,7 @@
 .idea
 .virtual_documents
 .zed
+.pre-commit-config.yaml
 
 ### Python template
 # Byte-compiled / optimized / DLL files
