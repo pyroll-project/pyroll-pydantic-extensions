@@ -4,7 +4,11 @@ from typing import Annotated, Literal
 import pytest
 from pydantic import BaseModel, ValidationError
 
-from pyroll_pydantic_extensions.subclass import ValidateSubclasses
+from pyroll_pydantic_extensions.subclass import (
+    ValidateSubclasses,
+    rebuild_validate_subclasses_models,
+    uses_validate_subclasses_field,
+)
 
 
 class Base(BaseModel):
@@ -60,6 +64,7 @@ def test_without_base(tmpdir: Path):
 
 def test_new_subclass(tmpdir: Path):
 
+    @uses_validate_subclasses_field
     class Container(BaseModel):
         subclassed: Annotated[Base, ValidateSubclasses(Base)]
 
@@ -79,7 +84,7 @@ def test_new_subclass(tmpdir: Path):
         Container.model_validate({"subclassed": {"type": "sub3", "val": "42"}})
 
     # force model rebuild
-    Container.model_rebuild(force=True)
+    rebuild_validate_subclasses_models()
 
     # now Sub3 must work
     v = Container.model_validate({"subclassed": {"type": "sub3", "val": "42"}})
