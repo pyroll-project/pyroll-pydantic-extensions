@@ -4,9 +4,9 @@ import numpy as np
 import pytest
 from pydantic import BaseModel, TypeAdapter, ValidationError
 
-from pyroll_pydantic_extensions.static_field import RegularGrid
+from pyroll_pydantic_extensions.static_field import StaticField
 
-ta = TypeAdapter(float | RegularGrid[float, np.float64])
+ta = TypeAdapter(StaticField[float, np.float64])
 
 
 @pytest.mark.parametrize(
@@ -48,7 +48,7 @@ def test_errors(value, tmpdir: Path):
 def test_model():
 
     class Model(BaseModel):
-        grid_field: RegularGrid[float, np.float64]
+        grid_field: StaticField[float, np.float64]
 
     Model(grid_field=[3, 5])
     Model(grid_field=[[3, 5], [1, 3]])
