@@ -54,5 +54,3 @@ type NumpyArray2D[PyT, NpT: np.generic] = Annotated[
     ArrayValidator,
     PlainSerializer(serialize_array),
 ]
-
-type RegularGrid[PyT, NpT: np.generic] = NumpyArray1D[PyT, NpT] | NumpyArray2D[PyT, NpT]

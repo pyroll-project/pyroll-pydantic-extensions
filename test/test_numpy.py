@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 from pydantic import BaseModel, TypeAdapter, ValidationError
 
-from pyroll_pydantic_extensions.numpy import RegularGrid
+from pyroll_pydantic_extensions.static_field import RegularGrid
 
 ta = TypeAdapter(float | RegularGrid[float, np.float64])
 
