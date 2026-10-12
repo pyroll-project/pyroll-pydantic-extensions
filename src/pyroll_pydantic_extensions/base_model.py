@@ -6,8 +6,12 @@ from pyroll_pydantic_extensions.static_field import ValidateGridShape
 
 
 class PyRollBaseModel(BaseModel):
+    """Customized base model class with some additional validators."""
+
     @model_validator(mode="after")
     def validate_regular_grids_shape(self):
+        """Validate that all instances given to field annotated with `ValidateGridShape` are broadcastable to each other."""
+
         cls = type(self)
 
         shape: tuple | None = None

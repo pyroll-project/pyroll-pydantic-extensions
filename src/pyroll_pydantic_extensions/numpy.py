@@ -6,6 +6,8 @@ from pydantic_core import core_schema
 
 
 class ArrayValidator:
+    """After validator that checks the runtime dtype and shape of numpy arrays against the type annotation."""
+
     @classmethod
     def __get_pydantic_core_schema__(
         cls,
@@ -38,6 +40,7 @@ class ArrayValidator:
 
 
 def serialize_array(a: np.ndarray):
+    """Simple array serializer using `.tolist()`."""
     return a.tolist()
 
 
@@ -47,6 +50,7 @@ type NumpyArray1D[PyT, NpT: np.generic] = Annotated[
     ArrayValidator,
     PlainSerializer(serialize_array),
 ]
+"""Type annotation for pydantic fields storing a 1D numpy array with plain python type `PyT` and corresponding numpy type `NpT`. The field is validated and serialized as a `list[PyT]`."""
 
 type NumpyArray2D[PyT, NpT: np.generic] = Annotated[
     np.ndarray[tuple[int, int], np.dtype[NpT]],
@@ -54,3 +58,4 @@ type NumpyArray2D[PyT, NpT: np.generic] = Annotated[
     ArrayValidator,
     PlainSerializer(serialize_array),
 ]
+"""Type annotation for pydantic fields storing a 2D numpy array with plain python type `PyT` and corresponding numpy type `NpT`. The field is validated and serialized as a `list[list[PyT]]`."""
