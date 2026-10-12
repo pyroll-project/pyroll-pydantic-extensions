@@ -32,6 +32,7 @@ def test_correct_values(value, tmpdir: Path):
     [
         [(0, 0), (0, "a"), (1, 1), (1, 0)],
         [[(0, 0), (0, 1), (1, 1), (1)]],
+        [[(0, 0), (0, 1), (1, 0), (1, 1), (0, 0)]],
     ],
 )
 def test_errors(value, tmpdir: Path):
