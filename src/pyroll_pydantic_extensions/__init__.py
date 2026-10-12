@@ -1,4 +1,5 @@
 from pyroll_pydantic_extensions.base_model import PyRollBaseModel
+from pyroll_pydantic_extensions.classifiers import Classifiers
 from pyroll_pydantic_extensions.numpy import NumpyArray1D, NumpyArray2D
 from pyroll_pydantic_extensions.shapely import LineString, Polygon
 from pyroll_pydantic_extensions.static_field import RegularGrid, StaticField, ValidateGridShape
@@ -20,4 +21,5 @@ __all__ = [
     "rebuild_validate_subclasses_models",
     "uses_validate_subclasses_field",
     "PyRollBaseModel",
+    "Classifiers",
 ]
